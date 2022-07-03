@@ -1,41 +1,53 @@
 // Iteration #1: Find the maximum
-function maxOfTwoNumbers() {}
-
+function maxOfTwoNumbers(a, b) {
+  return Math.max(5, 10)
+}
+console.log(maxOfTwoNumbers())
 
 
 // Iteration #2: Find longest word
 const words = ['mystery', 'brother', 'aviator', 'crocodile', 'pearl', 'orchard', 'crackpot'];
 
-function findLongestWord() {}
+function findLongestWord(arra) {
+  var max_str = arra[0].length;
+  var ans = arra[0];
+  for (var i = 1; i < arra.length; i++) {
+    var maxi = arra[i].length;
+    if (maxi > max_str) {
+      ans = arra[i];
+      max_str = maxi;
+    }
+  }
+  return ans;
+}
+
+console.log(findLongestWord(words))
 
 
 
 // Iteration #3: Calculate the sum
-const numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
+const numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10].reduce(add, 0);
 
-function sumNumbers() {}
+function add(accumulator, a) {
+  return accumulator + a;
+}
 
-
-
-// Iteration #3.1 Bonus:
-function sum() {}
-
+console.log(numbers);
 
 
 // Iteration #4: Calculate the average
 // Level 1: Array of numbers
 const numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];
 
-function averageNumbers() {}
+const average = numbersAvg => numbersAvg.reduce((prev, curr) => prev + curr) / numbersAvg.length;
 
+console.log(average(numbersAvg))
 
 // Level 2: Array of strings
 const wordsArr = ['seat', 'correspond', 'linen', 'motif', 'hole', 'smell', 'smart', 'chaos', 'fuel', 'palace'];
 
 function averageWordLength() { }
 
-// Bonus - Iteration #4.1
-function avg() {}
 
 // Iteration #5: Unique arrays
 const wordsUnique = [
@@ -52,16 +64,34 @@ const wordsUnique = [
   'bring'
 ];
 
-function uniquifyArray() {}
+
+function uniquifyArray(array) {
+  var a = array.concat();
+  for (var i = 0; i < a.length; ++i) {
+    for (var j = i + 1; j < a.length; ++j) {
+      if (a[i] === a[j])
+        a.splice(j--, 1);
+    }
+  }
+  return a;
+}
+
+console.log(uniquifyArray(wordsUnique))
 
 
 
 // Iteration #6: Find elements
 const wordsFind = ['machine', 'subset', 'trouble', 'starting', 'matter', 'eating', 'truth', 'disobedience'];
 
-function doesWordExist() {}
+function doesWordExist(arr, item) {
+  if (arr.includes(item)) {
+    return true
+  } else {
+    return false
+  }
+}
 
-
+console.log(doesWordExist(wordsFind, "machine"));
 
 // Iteration #7: Count repetition
 const wordsCount = [
@@ -78,7 +108,15 @@ const wordsCount = [
   'matter'
 ];
 
-function howManyTimes() {}
+function howManyTimes(arr, word) {
+  var n = 0;
+    for(i = 0; i < arr.length; i++){
+        if(arr[i] == word){n++}
+    }
+    return n;
+}
+
+console.log(howManyTimes(wordsCount, "matter"))
 
 
 
@@ -106,10 +144,53 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+let greatestProduct = (matrix) =>{
+  let product = 0;
+  for (let i = 0; i < matrix.length -4; i++){
+    for ( let k = 0; k < matrix[i].length -4; k++){
+      //Vertical
+      let tempProduct = matrix[i][k]*matrix[i + 1][k]*matrix[i + 2][k]*matrix[i + 3][k];
+      if (tempProduct > product){
+        product = tempProduct;
+      }
+      //Horizontal
+      tempProduct = matrix[i][k]*matrix[i][k + 1]*matrix[i][k + 2]*matrix[i][k + 3];
+      if (tempProduct > product){
+        product = tempProduct;
+      }
+    }
+  }
+  return product;
+}
 
+console.log(greatestProduct(matrix));
 
+//Bonus - Iteration #8.1: Product of diagonals
+let greatestProductOfDiagonals = (matrix) =>{
+  let product = 0;
+  //Diagonal left-right, top to bottom
+  for (let i = 0; i < matrix.length -4; i++){
+    for ( let k = 0; k < matrix[i].length -4; k++){
+      //Diagonal left-right, top to bottom
+      let tempProduct = matrix[i][k]*matrix[i + 1][k + 1]*matrix[i + 2][k + 2]*matrix[i + 3][k + 3];
+      if (tempProduct > product){
+        product = tempProduct;
+      }
+    }
+  }
+  //Diagonal right-left top to bottom
+  for (let i = 0; i < matrix.length -4; i++){
+    for ( let k = 3; k < matrix[i].length -4; k++){         
+      tempProduct = matrix[i][k]*matrix[i + 1][k - 1]*matrix[i + 2][k - 2]*matrix[i + 3][k - 3];
+      if (tempProduct > product){
+        product = tempProduct;
+      }
+    }
+  }
+  return product;
+}
 
+console.log(greatestProductOfDiagonals(matrix));
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
